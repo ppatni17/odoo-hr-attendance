@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_department_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.department.form.inherit.hr.attendance.reason</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.hr_department_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <group name="attendance_reasons" string="Attendance Reasons">
+                    <group>
+                        <field name="default_sign_in_reason_id" />
+                        <field name="default_sign_out_reason_id" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
