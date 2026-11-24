@@ -19,7 +19,11 @@ class HrAttendance(HrAttendance):
             if request.env.user.employee_id
             else request.env.company
         )
-        response.update(self._get_attendance_reason_settings(company))
+        response.update(
+            self._get_attendance_reason_settings(
+                company, employee=request.env.user.employee_id
+            )
+        )
         # get available reasons for employee company
         reasons = []
         if response.get("attendance_state", False):
@@ -69,7 +73,7 @@ class HrAttendance(HrAttendance):
                 res.update(
                     {
                         "reasons": self._get_attendance_reasons(action_type, company),
-                        **self._get_attendance_reason_settings(company),
+                        **self._get_attendance_reason_settings(company, employee=employee),
                     }
                 )
                 return res
@@ -82,15 +86,26 @@ class HrAttendance(HrAttendance):
             return self._get_attendance_reason_settings(company)
         return {}
 
-    def _get_attendance_reason_settings(self, company):
+    def _get_attendance_reason_settings(self, company, employee=None):
         show_reason = company.show_reason_on_attendance_screen
         required_reason = company.required_reason_on_attendance_screen
-        default_sign_in_reason_id = (
-            company.reason_on_attendance_screen_default_sign_in.id
-        )
-        default_sign_out_reason_id = (
-            company.reason_on_attendance_screen_default_sign_out.id
-        )
+        # Use department defaults if available, otherwise fall back to company defaults
+        if employee and employee.department_id:
+            default_sign_in_reason_id = (
+                employee.department_id.default_sign_in_reason_id.id
+                or company.reason_on_attendance_screen_default_sign_in.id
+            )
+            default_sign_out_reason_id = (
+                employee.department_id.default_sign_out_reason_id.id
+                or company.reason_on_attendance_screen_default_sign_out.id
+            )
+        else:
+            default_sign_in_reason_id = (
+                company.reason_on_attendance_screen_default_sign_in.id
+            )
+            default_sign_out_reason_id = (
+                company.reason_on_attendance_screen_default_sign_out.id
+            )
         return {
             "show_reason_on_attendance_screen": show_reason,
             "required_reason_on_attendance_screen": required_reason,

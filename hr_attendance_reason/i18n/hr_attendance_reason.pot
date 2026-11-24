@@ -116,6 +116,26 @@ msgid "Define attendance reason"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_department
+msgid "Department"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_department_view_form_inherit
+msgid "Attendance Reasons"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_department__default_sign_in_reason_id
+msgid "Default sign-in reason"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_department__default_sign_out_reason_id
+msgid "Default sign-out reason"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__display_name
 msgid "Display Name"
 msgstr ""

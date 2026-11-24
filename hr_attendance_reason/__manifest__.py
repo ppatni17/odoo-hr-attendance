@@ -16,6 +16,7 @@
         "security/security.xml",
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
+        "views/hr_department_view.xml",
         "views/res_config_settings_view.xml",
     ],
     "demo": [
